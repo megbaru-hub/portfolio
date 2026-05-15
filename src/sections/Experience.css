@@ -1,0 +1,134 @@
+.experience-placeholder {
+  padding: 100px 40px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.experience-placeholder p {
+  font-size: 1.05rem;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 48px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marker-dot {
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 3px solid var(--bg-primary);
+  box-shadow: 0 0 0 3px var(--accent-muted);
+}
+
+.marker-line {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+  margin-top: 12px;
+}
+
+.timeline-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.3s;
+}
+
+.timeline-content:hover {
+  border-color: var(--accent);
+}
+
+.timeline-meta {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.timeline-period,
+.timeline-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
+
+.timeline-role {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.timeline-company {
+  font-size: 1.1rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.timeline-description {
+  color: var(--text-tertiary);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.timeline-achievements {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.timeline-achievements li {
+  position: relative;
+  padding-left: 24px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.timeline-achievements li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+  .timeline-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .timeline-content {
+    padding: 24px;
+  }
+}
