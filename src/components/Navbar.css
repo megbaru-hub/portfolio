@@ -24,10 +24,13 @@
 }
 
 .nav-logo {
+  background: none;
+  border: none;
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
   font-family: 'Inter', monospace;
+  cursor: pointer;
 }
 
 .logo-bracket {
@@ -44,20 +47,23 @@
   list-style: none;
 }
 
-.nav-links a {
+.nav-links button {
+  background: none;
+  border: none;
   position: relative;
   color: var(--text-tertiary);
   font-size: 0.95rem;
   font-weight: 500;
+  cursor: pointer;
   transition: color 0.3s;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
+.nav-links button:hover,
+.nav-links button.active {
   color: var(--text-primary);
 }
 
-.nav-links a::after {
+.nav-links button::after {
   content: '';
   position: absolute;
   left: 0;
@@ -68,18 +74,20 @@
   transition: width 0.3s;
 }
 
-.nav-links a:hover::after,
-.nav-links a.active::after {
+.nav-links button:hover::after,
+.nav-links button.active::after {
   width: 100%;
 }
 
 .nav-cta {
-  padding: 10px 24px;
   background: var(--accent);
+  border: none;
   color: white;
+  padding: 10px 24px;
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s;
 }
 
@@ -87,7 +95,6 @@
   background: var(--accent-hover);
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-  text-decoration: none;
 }
 
 .mobile-menu-btn {
@@ -96,12 +103,12 @@
   border: none;
   color: var(--text-primary);
   padding: 8px;
+  cursor: pointer;
 }
 
 .mobile-menu {
   background: var(--bg-secondary);
-  border-top: 1px solid var(--border);
-  overflow: hidden;
+  border-bottom: 1px solid var(--border);
 }
 
 .mobile-nav-links {
@@ -109,19 +116,24 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 4px;
 }
 
-.mobile-nav-links a {
+.mobile-nav-links button {
+  background: none;
+  border: none;
   display: block;
+  width: 100%;
+  text-align: left;
   padding: 12px 0;
   color: var(--text-secondary);
   font-size: 1.1rem;
   font-weight: 500;
+  cursor: pointer;
   border-bottom: 1px solid var(--border);
 }
 
-.mobile-nav-links a.active {
+.mobile-nav-links button.active {
   color: var(--accent);
 }
 

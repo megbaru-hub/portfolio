@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import "./Navbar.css";
 
@@ -20,15 +20,15 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = navItems.map((item) => document.getElementById(item.id));
       const scrollPosition = window.scrollY + 150;
 
-      sections.forEach((section, index) => {
+      navItems.forEach(({ id }) => {
+        const section = document.getElementById(id);
         if (section) {
           const top = section.offsetTop;
           const height = section.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(navItems[index].id);
+            setActiveSection(id);
           }
         }
       });
@@ -41,82 +41,62 @@ export default function Navbar() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const top = element.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: "smooth" });
       setMobileMenuOpen(false);
     }
   };
 
   return (
-    <motion.header
-      className={`navbar ${scrolled ? "scrolled" : ""}`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <nav className="nav-container">
-        <a href="#hero" className="nav-logo" onClick={(e) => { e.preventDefault(); scrollToSection("hero"); }}>
+        <button className="nav-logo" onClick={() => scrollToSection("hero")}>
           <span className="logo-bracket">&lt;</span>
           Megbaru
           <span className="logo-accent">/&gt;</span>
-        </a>
+        </button>
 
         <ul className="nav-links">
           {navItems.map((item) => (
             <li key={item.id}>
-              <a
-                href={`#${item.id}`}
+              <button
                 className={activeSection === item.id ? "active" : ""}
-                onClick={(e) => { e.preventDefault(); scrollToSection(item.id); }}
+                onClick={() => scrollToSection(item.id)}
               >
                 {item.label}
-              </a>
+              </button>
             </li>
           ))}
         </ul>
 
-        <a href="#contact" className="nav-cta" onClick={(e) => { e.preventDefault(); scrollToSection("contact"); }}>
+        <button className="nav-cta" onClick={() => scrollToSection("contact")}>
           Contact Me
-        </a>
+        </button>
 
         <button
           className="mobile-menu-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
 
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            className="mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <ul className="mobile-nav-links">
-              {navItems.map((item, index) => (
-                <motion.li
-                  key={item.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
+      {mobileMenuOpen && (
+        <div className="mobile-menu">
+          <ul className="mobile-nav-links">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <button
+                  className={activeSection === item.id ? "active" : ""}
+                  onClick={() => scrollToSection(item.id)}
                 >
-                  <a
-                    href={`#${item.id}`}
-                    className={activeSection === item.id ? "active" : ""}
-                    onClick={(e) => { e.preventDefault(); scrollToSection(item.id); }}
-                  >
-                    {item.label}
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </header>
   );
 }
