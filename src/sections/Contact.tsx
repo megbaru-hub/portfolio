@@ -5,14 +5,35 @@ import "./Contact.css";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
-  const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setStatus("success");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+
+    try {
+      const response = await fetch("https://formspree.io/f/xgodgyyj", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -73,7 +94,7 @@ export default function Contact() {
               <span className="avail-dot" />
               <div>
                 <h4>Currently Available</h4>
-                <p>Open for security consultations and projects</p>
+                <p>Open for security projects and opportunities</p>
               </div>
             </div>
           </motion.div>
@@ -137,7 +158,7 @@ export default function Contact() {
 
             <button type="submit" className="submit-btn" disabled={status === "sending"}>
               {status === "sending" ? (
-                <span className="sending">Sending...</span>
+                "Sending..."
               ) : (
                 <>
                   <Send size={18} />
@@ -152,7 +173,17 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                Message sent successfully!
+                Message sent! I'll get back to you soon.
+              </motion.p>
+            )}
+
+            {status === "error" && (
+              <motion.p
+                className="error-message"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                Failed to send. Please try again or contact via email.
               </motion.p>
             )}
           </motion.form>
