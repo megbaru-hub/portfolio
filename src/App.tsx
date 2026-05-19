@@ -21,7 +21,7 @@ function App() {
         <Contact />
       </main>
       <footer>
-        <p>&copy; 2024 Megbaru Dessie. Cyber Security Professional.</p>
+        <p>&copy; 2026 Megbaru Dessie. Cyber Security Professional.</p>
       </footer>
     </BrowserRouter>
   );
