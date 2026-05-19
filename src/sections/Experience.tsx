@@ -31,7 +31,7 @@ export default function Experience() {
           <span className="section-label">Career</span>
           <h2 className="section-title">Work Experience</h2>
           <p className="section-description">
-            My professional journey in cyber security.
+            My professional journey in cyber security
           </p>
         </motion.div>
 
@@ -47,7 +47,6 @@ export default function Experience() {
             >
               <div className="timeline-marker">
                 <div className="marker-dot" />
-                {index < experiences.length - 1 && <div className="marker-line" />}
               </div>
               
               <div className="timeline-content">

@@ -1,20 +1,19 @@
 main {
-  padding-top: 80px;
+  padding-top: 72px;
 }
 
 footer {
   text-align: center;
-  padding: 48px 24px;
+  padding: 40px 24px;
   border-top: 1px solid var(--border);
   color: var(--text-tertiary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 footer a {
   color: var(--accent);
-  transition: color 0.2s;
 }
 
 footer a:hover {
-  color: var(--accent-hover);
+  text-decoration: underline;
 }

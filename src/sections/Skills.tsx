@@ -35,7 +35,7 @@ export default function Skills() {
           <span className="section-label">Expertise</span>
           <h2 className="section-title">Technical Skills</h2>
           <p className="section-description">
-            Skills and tools I use to secure systems and find vulnerabilities.
+            Skills and tools I use to secure systems and find vulnerabilities
           </p>
         </motion.div>
 

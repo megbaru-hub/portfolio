@@ -10,21 +10,12 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-
     try {
       const response = await fetch("https://formspree.io/f/xgodgyyj", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-
       if (response.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", subject: "", message: "" });
@@ -37,7 +28,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact">
+    <section id="contact" className="section-alt">
       <div className="container">
         <motion.div
           className="section-header"
@@ -93,8 +84,8 @@ export default function Contact() {
             <div className="availability-card">
               <span className="avail-dot" />
               <div>
-                <h4>Currently Available</h4>
-                <p>Open for security projects and opportunities</p>
+                <h4>Available for Opportunities</h4>
+                <p>Open for security projects, internships, and roles</p>
               </div>
             </div>
           </motion.div>
@@ -110,82 +101,32 @@ export default function Contact() {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                />
+                <input type="text" id="name" placeholder="Your Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
               </div>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="your@email.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                />
+                <input type="email" id="email" placeholder="your@email.com" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
               </div>
             </div>
             
             <div className="form-group">
               <label htmlFor="subject">Subject</label>
-              <input
-                type="text"
-                id="subject"
-                placeholder="Security Consultation"
-                value={formData.subject}
-                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                required
-              />
+              <input type="text" id="subject" placeholder="Security Consultation" value={formData.subject} onChange={(e) => setFormData({...formData, subject: e.target.value})} required />
             </div>
 
             <div className="form-group">
               <label htmlFor="message">Message</label>
-              <textarea
-                id="message"
-                rows={6}
-                placeholder="Tell me about your security needs..."
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                required
-              />
+              <textarea id="message" rows={5} placeholder="Tell me about your security needs..." value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required />
             </div>
 
             <button type="submit" className="submit-btn" disabled={status === "sending"}>
-              {status === "sending" ? (
-                "Sending..."
-              ) : (
-                <>
-                  <Send size={18} />
-                  Send Message
-                </>
+              {status === "sending" ? "Sending..." : (
+                <><Send size={18} /> Send Message</>
               )}
             </button>
 
-            {status === "success" && (
-              <motion.p
-                className="success-message"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                Message sent! I'll get back to you soon.
-              </motion.p>
-            )}
-
-            {status === "error" && (
-              <motion.p
-                className="error-message"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                Failed to send. Please try again or contact via email.
-              </motion.p>
-            )}
+            {status === "success" && <p className="success-msg">Message sent! I'll get back to you soon.</p>}
+            {status === "error" && <p className="error-msg">Failed to send. Try emailing me directly.</p>}
           </motion.form>
         </div>
       </div>
